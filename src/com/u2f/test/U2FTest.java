@@ -1,5 +1,7 @@
 package com.u2f.test;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,14 +16,18 @@ import com.u2f.utils.Constants;
 public class U2FTest {
 
 	U2FClient client=null;
+	String apiToken = null;
 	@Before
 	public void setUp() throws Exception {
+		Properties props = new Properties();
+		props.load(getClass().getResourceAsStream("/token"));
+		apiToken = props.get("apitoken").toString();
 		testU2FClient();
 	}
 
 	@Test
 	public void testU2FClient() {
-		client=new U2FClient(Constants.API_ENDPOINT, Constants.API_TOKEN);
+		client=new U2FClient(Constants.API_ENDPOINT, apiToken);
 	}
 
 	@Test
